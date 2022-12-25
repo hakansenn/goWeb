@@ -5,21 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97150dba-0717-47da-a82a-1ee84b55706c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/cmd/web/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmd/web/middleware.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmd/web/routes.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/config/config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/handlers/handlers.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/models/templatedata.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/render/render.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/base.layout.tmpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/about.page.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/about.page.tmpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.page.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.page.tmpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
