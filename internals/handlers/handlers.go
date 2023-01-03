@@ -6,9 +6,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/hakansenn/goWeb/pkg/config"
-	"github.com/hakansenn/goWeb/pkg/models"
-	"github.com/hakansenn/goWeb/pkg/render"
+	"github.com/hakansenn/goWeb/internals/config"
+	"github.com/hakansenn/goWeb/internals/forms"
+	"github.com/hakansenn/goWeb/internals/models"
+	"github.com/hakansenn/goWeb/internals/render"
 )
 
 // Repo the repository used by the handlers
@@ -58,7 +59,18 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 }
 
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "make-reservation.page.tmpl", &models.TemplateData{})
+	render.RenderTemplate(w, r, "make-reservation.page.tmpl", &models.TemplateData{
+		Form: forms.New(nil),
+	})
+}
+
+func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil{
+		log.Println(err)
+		return
+	}
+	
 }
 
 func (m *Repository) Generals(w http.ResponseWriter, r *http.Request) {

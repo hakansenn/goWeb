@@ -3,13 +3,13 @@ package render
 import (
 	"bytes"
 	"fmt"
+	"github.com/hakansenn/goWeb/internals/config"
+	"github.com/hakansenn/goWeb/internals/models"
 	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
 
-	"github.com/hakansenn/goWeb/pkg/config"
-	"github.com/hakansenn/goWeb/pkg/models"
 	"github.com/justinas/nosurf"
 )
 

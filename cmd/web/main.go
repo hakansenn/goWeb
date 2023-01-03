@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
+	"github.com/hakansenn/goWeb/internals/config"
+	"github.com/hakansenn/goWeb/internals/handlers"
+	"github.com/hakansenn/goWeb/internals/render"
 	"log"
 	"net/http"
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/hakansenn/goWeb/pkg/config"
-	"github.com/hakansenn/goWeb/pkg/handlers"
-	"github.com/hakansenn/goWeb/pkg/render"
 )
 
 const portNumber = ":8080"
