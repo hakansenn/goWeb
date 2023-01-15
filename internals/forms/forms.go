@@ -27,7 +27,6 @@ func (f *Form) Has(field string, r *http.Request) bool {
 		f.Errors.Add(field,"This field cannot be blank")
 		return false
 	}
-
 	return true
 
 }
