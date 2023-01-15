@@ -1,13 +1,16 @@
 package main
 
 import (
+	"encoding/gob"
 	"fmt"
-	"github.com/hakansenn/goWeb/internals/config"
-	"github.com/hakansenn/goWeb/internals/handlers"
-	"github.com/hakansenn/goWeb/internals/render"
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/hakansenn/goWeb/internals/config"
+	"github.com/hakansenn/goWeb/internals/handlers"
+	"github.com/hakansenn/goWeb/internals/models"
+	"github.com/hakansenn/goWeb/internals/render"
 
 	"github.com/alexedwards/scs/v2"
 )
@@ -20,6 +23,9 @@ var session *scs.SessionManager
 
 // main is the main function
 func main() {
+
+	//what am i going to put in the session
+	gob.Register(models.Reservation{})
 
 	app.InProduction = false
 
