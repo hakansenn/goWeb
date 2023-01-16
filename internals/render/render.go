@@ -3,12 +3,13 @@ package render
 import (
 	"bytes"
 	"fmt"
-	"github.com/hakansenn/goWeb/internals/config"
-	"github.com/hakansenn/goWeb/internals/models"
 	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/hakansenn/goWeb/internals/config"
+	"github.com/hakansenn/goWeb/internals/models"
 
 	"github.com/justinas/nosurf"
 )
@@ -23,7 +24,11 @@ func NewTemplates(a *config.AppConfig) {
 }
 
 func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
+	td.Flash = app.Session.PopString(r.Context(), "flash")
+	td.Error = app.Session.PopString(r.Context(), "error")
+	td.Warning = app.Session.PopString(r.Context(), "warning")
 	td.CSRFToken = nosurf.Token(r)
+
 	return td
 }
 
