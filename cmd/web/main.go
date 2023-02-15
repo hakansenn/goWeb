@@ -7,29 +7,26 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/hakansenn/goWeb/internals/config"
-	"github.com/hakansenn/goWeb/internals/handlers"
-	"github.com/hakansenn/goWeb/internals/models"
-	"github.com/hakansenn/goWeb/internals/render"
-
 	"github.com/alexedwards/scs/v2"
+	"github.com/hakansenn/goWeb/internal/config"
+	"github.com/hakansenn/goWeb/internal/handlers"
+	"github.com/hakansenn/goWeb/internal/models"
+	"github.com/hakansenn/goWeb/internal/render"
 )
 
 const portNumber = ":8080"
 
 var app config.AppConfig
-
 var session *scs.SessionManager
 
 // main is the main function
 func main() {
-
 	err := run()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("Staring application on port %s \n", portNumber)
+	fmt.Println(fmt.Sprintf("Staring application on port %s", portNumber))
 
 	srv := &http.Server{
 		Addr:    portNumber,
@@ -37,15 +34,19 @@ func main() {
 	}
 
 	err = srv.ListenAndServe()
-	log.Fatal(err)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func run() error {
-	//what am i going to put in the session
+	// what am I going to put in the session
 	gob.Register(models.Reservation{})
 
+	// change this to true when in production
 	app.InProduction = false
 
+	// set up the session
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour
 	session.Cookie.Persist = true
@@ -65,7 +66,7 @@ func run() error {
 
 	repo := handlers.NewRepo(&app)
 	handlers.NewHandlers(repo)
-	render.NewTemplates(&app)
 
+	render.NewTemplates(&app)
 	return nil
 }

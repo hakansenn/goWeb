@@ -3,17 +3,18 @@ package handlers
 import (
 	"encoding/gob"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
-	"html/template"
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/go-chi/chi/v5"
-	"github.com/hakansenn/goWeb/internals/config"
-	"github.com/hakansenn/goWeb/internals/models"
-	"github.com/hakansenn/goWeb/internals/render"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
+	"github.com/hakansenn/goWeb/internal/config"
+	"github.com/hakansenn/goWeb/internal/models"
+	"github.com/hakansenn/goWeb/internal/render"
 	"github.com/justinas/nosurf"
 )
 
@@ -23,10 +24,13 @@ var pathToTemplates = "./../../templates"
 var functions = template.FuncMap{}
 
 func getRoutes() http.Handler {
+	// what am I going to put in the session
 	gob.Register(models.Reservation{})
 
+	// change this to true when in production
 	app.InProduction = false
 
+	// set up the session
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour
 	session.Cookie.Persist = true
@@ -45,9 +49,12 @@ func getRoutes() http.Handler {
 
 	repo := NewRepo(&app)
 	NewHandlers(repo)
+
 	render.NewTemplates(&app)
 
 	mux := chi.NewRouter()
+
+	mux.Use(middleware.Recoverer)
 	//mux.Use(NoSurf)
 	mux.Use(SessionLoad)
 
@@ -72,9 +79,10 @@ func getRoutes() http.Handler {
 	return mux
 }
 
+// NoSurf is the csrf protection middleware
 func NoSurf(next http.Handler) http.Handler {
-
 	csrfHandler := nosurf.New(next)
+
 	csrfHandler.SetBaseCookie(http.Cookie{
 		HttpOnly: true,
 		Path:     "/",
@@ -84,9 +92,12 @@ func NoSurf(next http.Handler) http.Handler {
 	return csrfHandler
 }
 
+// SessionLoad loads and saves session data for current request
 func SessionLoad(next http.Handler) http.Handler {
 	return session.LoadAndSave(next)
 }
+
+// CreateTestTemplateCache creates a template cache as a map
 func CreateTestTemplateCache() (map[string]*template.Template, error) {
 
 	myCache := map[string]*template.Template{}

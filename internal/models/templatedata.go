@@ -1,6 +1,6 @@
 package models
 
-import "github.com/hakansenn/goWeb/internals/forms"
+import "github.com/hakansenn/goWeb/internal/forms"
 
 // TemplateData holds data sent from handlers to templates
 type TemplateData struct {

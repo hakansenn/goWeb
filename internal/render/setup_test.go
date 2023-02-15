@@ -8,19 +8,21 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/hakansenn/goWeb/internals/config"
-	"github.com/hakansenn/goWeb/internals/models"
+	"github.com/hakansenn/goWeb/internal/config"
+	"github.com/hakansenn/goWeb/internal/models"
 )
 
 var session *scs.SessionManager
 var testApp config.AppConfig
 
 func TestMain(m *testing.M) {
-	//what am i going to put in the session
+
 	gob.Register(models.Reservation{})
 
+	// change this to true when in production
 	testApp.InProduction = false
 
+	// set up the session
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour
 	session.Cookie.Persist = true
@@ -43,7 +45,7 @@ func (tw *myWriter) Header() http.Header {
 
 func (tw *myWriter) WriteHeader(i int) {}
 
-func (tc *myWriter) Write(b []byte) (int, error) {
+func (tw *myWriter) Write(b []byte) (int, error) {
 	length := len(b)
 	return length, nil
 }
